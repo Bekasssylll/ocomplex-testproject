@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Прогноз погоды</title>
+</head>
+<body>
+    <h1>Погода в городе {{ city }}</h1>
+
+    {% if current %}
+        <h2>Текущая погода:</h2>
+        <ul>
+            <li>Температура: {{ current.temperature_2m }} {{ temperature_unit }}</li>
+            <li>Скорость ветра: {{ current.wind_speed_10m }} {{ wind_unit }}</li>
+            <li>Время обновления: {{ current.time }}</li>
+        </ul>
+
+        <h2>Прогноз на ближайшие часы:</h2>
+        <table border="1">
+            <tr>
+                <th>Время</th>
+                <th>Температура ({{ temperature_unit }})</th>
+                <th>Влажность (%)</th>
+                <th>Ветер ({{ wind_unit }})</th>
+            </tr>
+            {% for time, temp, humidity, wind in hourly %}
+                <tr>
+                    <td>{{ time }}</td>
+                    <td>{{ temp }}</td>
+                    <td>{{ humidity }}</td>
+                    <td>{{ wind }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% elif error %}
+        <p style="color:red">{{ error }}</p>
+    {% else %}
+        <p>Введите город в поисковой строке.</p>
+    {% endif %}
+
+    <form method="get">
+        <input type="text" name="city" placeholder="Введите город" required>
+        <button type="submit">Показать погоду</button>
+    </form>
+</body>
+</html>
