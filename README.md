@@ -80,6 +80,13 @@ python manage.py migrate
 
 После этого доккер запуститься.
 
+### URLS
+
+http://localhost:8000/ - главная страница
+
+http://localhost:8000/history/ - просмотр историй
+
+
 Главный экран:
 ![Главный экран](static/example.png)
 
