@@ -2,44 +2,154 @@
 <html>
 <head>
     <title>Прогноз погоды</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6dd5fa, #2980b9);
+            color: #fff;
+            text-align: center;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+
+        }
+        form {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 500px;
+        }
+        input[type="text"] {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            flex-grow: 1;
+            outline: none;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: #3498db;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .weather-container {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            max-width: 515px;  /* сделали меньше ширину */
+            width: 100%;
+            max-height: 110vh; /* максимум 70% высоты экрана */
+            overflow-y: auto; /* добавим вертикальный скролл, если высота превышена */
+            margin-top: 10px;
+
+        }
+
+
+        h1, h2 {
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+        ul li {
+            margin-bottom: 6px;
+        }
+        table {
+        display: block;
+        max-height: 350px;  /* высота, чтобы таблица не была слишком высокой */
+        overflow-y: auto;
+        width: 100%;
+        border-collapse: collapse;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 10px;
+        font-size: 0.9rem;
+        margin-bottom: 0;
+}
+        th, td {
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            font-weight: 500;
+        }
+        th {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        p {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        p[style*="color:red"] {
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.8);
+        }
+    </style>
 </head>
 <body>
-    <h1>Погода в городе {{ city }}</h1>
-
-    {% if current %}
-        <h2>Текущая погода:</h2>
-        <ul>
-            <li>Температура: {{ current.temperature_2m }} {{ temperature_unit }}</li>
-            <li>Скорость ветра: {{ current.wind_speed_10m }} {{ wind_unit }}</li>
-            <li>Время обновления: {{ current.time }}</li>
-        </ul>
-
-        <h2>Прогноз на ближайшие часы:</h2>
-        <table border="1">
-            <tr>
-                <th>Время</th>
-                <th>Температура ({{ temperature_unit }})</th>
-                <th>Влажность (%)</th>
-                <th>Ветер ({{ wind_unit }})</th>
-            </tr>
-            {% for time, temp, humidity, wind in hourly %}
-                <tr>
-                    <td>{{ time }}</td>
-                    <td>{{ temp }}</td>
-                    <td>{{ humidity }}</td>
-                    <td>{{ wind }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-    {% elif error %}
-        <p style="color:red">{{ error }}</p>
-    {% else %}
-        <p>Введите город в поисковой строке.</p>
-    {% endif %}
-
     <form method="get">
         <input type="text" name="city" placeholder="Введите город" required>
         <button type="submit">Показать погоду</button>
     </form>
+
+    <div class="weather-container">
+        <h1>Погода в городе {{ city }}</h1>
+
+        {% if current %}
+            <h2>Текущая погода:</h2>
+            <ul>
+                <li>Температура: {{ current.temperature_2m }} {{ temperature_unit }}</li>
+                <li>Скорость ветра: {{ current.wind_speed_10m }} {{ wind_unit }}</li>
+                <li>Время обновления: {{ current.time }}</li>
+            </ul>
+
+            <h2>Прогноз на ближайшие часы:</h2>
+            <table>
+                <tr>
+                    <th>Время</th>
+                    <th>Температура ({{ temperature_unit }})</th>
+                    <th>Влажность (%)</th>
+                    <th>Ветер ({{ wind_unit }})</th>
+                </tr>
+                {% for time, temp, humidity, wind in hourly %}
+                    <tr>
+                        <td>{{ time }}</td>
+                        <td>{{ temp }}</td>
+                        <td>{{ humidity }}</td>
+                        <td>{{ wind }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% elif error %}
+            <p style="color:red">{{ error }}</p>
+        {% else %}
+            <p>Введите город в поисковой строке.</p>
+        {% endif %}
+    </div>
 </body>
 </html>

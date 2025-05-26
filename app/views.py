@@ -18,10 +18,10 @@ def test(request):
                 'temperature_unit': data['current_units']['temperature_2m'],
                 'wind_unit': data['current_units']['wind_speed_10m'],
                 'hourly': zip(
-                    data['hourly']['time'][:12],  # первые 12 часов (напр., на график или таблицу)
-                    data['hourly']['temperature_2m'][:12],
-                    data['hourly']['relative_humidity_2m'][:12],
-                    data['hourly']['wind_speed_10m'][:12]
+                    data['hourly']['time'][:24],
+                    data['hourly']['temperature_2m'][:24],
+                    data['hourly']['relative_humidity_2m'][:24],
+                    data['hourly']['wind_speed_10m'][:24]
                 )
             }
         except Exception as e:
