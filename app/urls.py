@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
-from app.views import test
-
+from app.views import weather, HistoryView
 urlpatterns = [
-    path("test/", test)
+    path("", weather,name='weather'),
+    path('history/',HistoryView,name='history')
 ]

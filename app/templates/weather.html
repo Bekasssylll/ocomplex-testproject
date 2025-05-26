@@ -118,6 +118,10 @@
     </form>
 
     <div class="weather-container">
+
+        {% if info %}
+        <p style="color: #ddd; font-size: 0.95rem;">🔎 {{ info }}</p>
+    {% endif %}
         <h1>Погода в городе {{ city }}</h1>
 
         {% if current %}

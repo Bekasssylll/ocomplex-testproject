@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>История поисков</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            color: #333;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #007acc;
+            margin-bottom: 30px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            background: white;
+            margin-bottom: 10px;
+            padding: 15px 20px;
+            border-radius: 6px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        li:nth-child(odd) {
+            background: #e6f0fb;
+        }
+        .city-name {
+            font-weight: 600;
+        }
+        .count {
+            background: #007acc;
+            color: white;
+            font-weight: 700;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.9rem;
+            min-width: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>История запросов</h1>
+    <ul>
+        {% for item in data %}
+            <li>
+                <span class="city-name">{{ item.city }}</span>
+                <span class="count">{{ item.count }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
