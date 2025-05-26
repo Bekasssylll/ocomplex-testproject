@@ -15,7 +15,6 @@ def weather(request):
 
     if city:
         try:
-            # 2. Сохраняем последний введённый город
             request.session['last_city'] = city
 
             lan, lon = define_latitude_longitude(city)
@@ -51,9 +50,14 @@ def weather(request):
 
 def define_latitude_longitude(city):
     req = requests.get(f'https://nominatim.openstreetmap.org/search?city={city}&format=json', headers=headers)
+    if req.status_code != 200:
+        raise Exception("Ошибка запроса к геокодеру")
     data = req.json()
+    if not data:
+        raise ValueError(f"Город '{city}' не найден")
     defined = data[0]
     return defined['lat'], defined['lon']
+
 
 
 def define_weather(lan, lon):
