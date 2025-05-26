@@ -2,7 +2,7 @@ from django.db import models
 
 
 class CitySearch(models.Model):
-    city = models.CharField(max_length=100,unique=True)
+    city = models.CharField(max_length=100, unique=True)
     count = models.IntegerField(default=0)
     last_searched = models.DateTimeField(auto_now=True)
 

@@ -59,7 +59,6 @@ def define_latitude_longitude(city):
     return defined['lat'], defined['lon']
 
 
-
 def define_weather(lan, lon):
     req = requests.get(
         f'https://api.open-meteo.com/v1/forecast?latitude={lan}&longitude={lon}&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m')
